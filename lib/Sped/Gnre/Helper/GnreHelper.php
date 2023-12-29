@@ -43,7 +43,7 @@ class GnreHelper
 
     /**
      * Método utilizado para gerar os dados principais da GNRE utilizando os dados encontrados dentro do XML
-     * 
+     *
      *
      * @param string $dadosArquivo <p>String contendo o xml da NF de venda
      * utilizada no SEFAZ</p>
@@ -55,12 +55,10 @@ class GnreHelper
         $xml = self::parseNf($xmlNf);
         $guia = new Guia();
         $guia->c04_docOrigem = $xml->NrNf;
-        $guia->c28_tipoDocOrigem = $xml->TipoDoc;
         $guia->c21_cepEmitente = $xml->CEPEmpresa;
         $guia->c16_razaoSocialEmitente = $xml->NmEmpresa;
         $guia->c03_idContribuinteEmitente = $xml->NrDocumentoEmpresa;
         $guia->c18_enderecoEmitente = $xml->EnderecoEmpresa;
-        $guia->c19_municipioEmitente = $xml->MunicipioEmpresa;
         $guia->c20_ufEnderecoEmitente = $xml->UfEmpresa;
         $guia->c17_inscricaoEstadualEmitente = $xml->NrIEEmpresa;
         $guia->c22_telefoneEmitente = $xml->TelefoneEmpresa;
@@ -68,7 +66,6 @@ class GnreHelper
         $guia->c35_idContribuinteDestinatario = $xml->NrDocumentoCliente;
         $guia->c36_inscricaoEstadualDestinatario = $xml->NrIECliente;
         $guia->c37_razaoSocialDestinatario = $xml->NmCliente;
-        $guia->c38_municipioDestinatario = $xml->MunicipioCliente;
 
         return $guia;
     }
@@ -79,9 +76,17 @@ class GnreHelper
         $xml = simplexml_load_string($xmlNf);
         $parsed = new stdClass();
 
-
         $parsed->CEPEmpresa = $xml->NFe->infNFe->emit->enderEmit->CEP;
-        $parsed->EnderecoEmpresa = $xml->NFe->infNFe->emit->enderEmit->xLgr;
+        $parsed->EnderecoEmpresa = sprintf(
+            '%s, %s - %s - %s - %s',
+            $xml->NFe->infNFe->emit->enderEmit->xLgr,
+            $xml->NFe->infNFe->emit->enderEmit->nro,
+            trim(rtrim($xml->NFe->infNFe->emit->enderEmit->xBairro, '-')),
+            $xml->NFe->infNFe->emit->enderEmit->xMun,
+            $xml->NFe->infNFe->emit->enderEmit->UF
+        );
+
+
         $parsed->CdMunicipioEmpresa = $xml->NFe->infNFe->emit->enderEmit->cMun;
         $parsed->MunicipioEmpresa = $xml->NFe->infNFe->emit->enderEmit->xMun;
         $parsed->UfEmpresa = $xml->NFe->infNFe->emit->enderEmit->UF;
@@ -103,6 +108,8 @@ class GnreHelper
         $parsed->NrChaveNFe = $xml->protNFe->infProt->chNFe;
         $parsed->VlNf = $xml->NFe->infNFe->total->ICMSTot->vNF;
         $parsed->NrNf = $xml->NFe->infNFe->ide->nNF;
+
+        $parsed->xml = $xml;
 
         return $parsed;
     }

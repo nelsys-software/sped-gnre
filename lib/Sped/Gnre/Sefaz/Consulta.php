@@ -30,11 +30,16 @@ use Sped\Gnre\Sefaz\ConsultaGnre;
  */
 class Consulta extends ConsultaGnre
 {
-
     /**
-     * @var bool
+     * @var false|mixed
      */
-    private $ambienteDeTeste = false;
+    private mixed $ambienteDeTeste;
+
+    public function __construct($recibo, $isEnvTest = false)
+    {
+        $this->ambienteDeTeste = $isEnvTest;
+        $this->recibo = $recibo;
+    }
 
     /**
      * {@inheritdoc}
@@ -96,7 +101,7 @@ class Consulta extends ConsultaGnre
 
         $gnreCabecalhoSoap = $gnre->createElement('gnreCabecMsg');
         $gnreCabecalhoSoap->setAttribute('xmlns', 'http://www.gnre.pe.gov.br/wsdl/consultar');
-        $gnreCabecalhoSoap->appendChild($gnre->createElement('versaoDados', '1.00'));
+        $gnreCabecalhoSoap->appendChild($gnre->createElement('versaoDados', '2.00'));
 
         $soapHeader = $gnre->createElement('soap12:Header');
         $soapHeader->appendChild($gnreCabecalhoSoap);

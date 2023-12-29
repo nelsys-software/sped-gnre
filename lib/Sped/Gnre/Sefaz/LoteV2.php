@@ -18,10 +18,28 @@
 namespace Sped\Gnre\Sefaz;
 
 use DOMDocument;
+use GuzzleHttp\ClientInterface;
 
-class LoteV2 extends Lote {
+class LoteV2 extends Lote
+{
+    public int $recibo = 0;
 
     public $ambienteDeTesteV2 = false;
+    private ClientInterface $httpClient;
+
+    public function __construct(
+        $isTestEnv = false,
+        $certPath = 'data/certificado/certificado.pfx',
+        $certPass = 'mudar123',
+        ClientInterface $httpClient = null
+    ){
+        $this->ambienteDeTesteV2 = $isTestEnv;
+        $this->httpClient = $httpClient ?: new \GuzzleHttp\Client([
+            'base_uri' => $this->getSoapEndpoint(),
+            'cert'     => [$certPath, $certPass],
+            'curl'     => [CURLOPT_SSLCERTTYPE => 'P12']
+        ]);
+    }
 
     /**
      * @param bool $ambienteDeTesteV2
@@ -31,6 +49,54 @@ class LoteV2 extends Lote {
     {
         $this->ambienteDeTesteV2 = $ambienteDeTesteV2;
         return $this;
+    }
+
+    public function enviarLote(): bool|\SimpleXMLElement
+    {
+        $action = sprintf('"%s/gnreWS/services/GnreLoteRecepcao"', $this->getSoapEndpoint());
+
+        try {
+            $response = $this->httpClient->request('POST', 'gnreWS/services/GnreLoteRecepcao', [
+                'headers' => [
+                    'Content-Type' => 'application/soap+xml',
+                    'charset' => 'utf-8',
+                    'action' => $action,
+                    'SOAPAction' => 'processar'
+                ],
+                'body' => $this->toXml()
+            ]);
+
+            $xml = simplexml_load_string($response->getBody()->getContents());
+            $xml->registerXPathNamespace('ns1', 'http://www.gnre.pe.gov.br');
+            $this->recibo = (string) $xml->xpath('//ns1:numero')[0];
+
+            return $xml;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        return false;
+    }
+
+    public function consultarLote($recibo = null): bool|\SimpleXMLElement
+    {
+        $action = sprintf('"%s/gnreWS/services/GnreResultadoLote"', $this->getSoapEndpoint());
+
+        try {
+            $response = $this->httpClient->request('POST', 'gnreWS/services/GnreResultadoLote', [
+                'headers' => [
+                    'Content-Type' => 'application/soap+xml',
+                    'charset' => 'utf-8',
+                    'action' => $action,
+                    'SOAPAction' => 'consultar'
+                ],
+                'body' => (new Consulta($recibo ?: $this->recibo, $this->ambienteDeTesteV2))->toXml()
+            ]);
+
+            return simplexml_load_string($response->getBody()->getContents());
+        } catch (\Exception $e) {}
+
+        return false;
     }
 
     public function getSoapEnvelop($gnre, $loteGnre)
@@ -65,7 +131,15 @@ class LoteV2 extends Lote {
         $soapEnv->appendChild($soapBody);
     }
 
-    public function toXml() {
+    public function getSoapEndpoint()
+    {
+        return $this->ambienteDeTesteV2 ?
+            'https://www.testegnre.pe.gov.br' :
+            'https://www.gnre.pe.gov.br';
+    }
+
+    public function toXml()
+    {
         $gnre = new DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
         $gnre->preserveWhiteSpace = false;
@@ -216,6 +290,10 @@ class LoteV2 extends Lote {
             $contribuinteDestinatario->appendChild($municipio);
 
 
+            if ($gnreGuia->c25_detalhamentoReceita) {
+                $detalhamentoReceita = $gnre->createElement('detalhamentoReceita', $gnreGuia->c25_detalhamentoReceita);
+                $item->appendChild($detalhamentoReceita);
+            }
 
             if ($receita->nodeValue) {
                 $item->appendChild($receita);
@@ -286,7 +364,8 @@ class LoteV2 extends Lote {
         return $gnre->saveXML();
     }
 
-    public function gerarCamposExtras($gnre, $gnreGuia) {
+    public function gerarCamposExtras($gnre, $gnreGuia)
+    {
         if (is_array($gnreGuia->c39_camposExtras) && count($gnreGuia->c39_camposExtras) > 0) {
             $c39_camposExtras = $gnre->createElement('camposExtras');
             foreach ($gnreGuia->c39_camposExtras as $key => $campos) {
@@ -301,7 +380,8 @@ class LoteV2 extends Lote {
         }
     }
 
-    public function getCodigoDoc($uf, $difa = false) {
+    public function getCodigoDoc($uf, $difa = false)
+    {
         $doc = '10';
         switch ($uf) {
             case 'AC' : $doc = '10'; break;//acre
@@ -335,7 +415,8 @@ class LoteV2 extends Lote {
         return $doc;
     }
 
-    public function getNumDoc($uf) {
+    public function getNumDoc($uf)
+    {
         $doc = 'numero';
         switch ($uf) {
             case 'AC' : $doc = 'numero'; break;//acre
