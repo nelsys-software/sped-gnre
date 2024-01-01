@@ -180,3 +180,76 @@ http://localhost:8181/gerar-xml.php
 -----
 
 Caso queira ver outros exemplos utilizados pela API acesse esse link https://github.com/nfephp-org/sped-gnre/tree/master/exemplos
+
+
+```
+$gnre = [
+    'guias' => [
+        [
+            '_tag' => 'TDadosGNRE',
+            '_attributes' => ['version' => '2.0'],
+            'ufFavorecida' => 'SP',
+            'tipoGnre' => [
+                '_attributes' => ['version' => '2.0'],
+                '_value' => 'SLA',
+            ],
+            'contribuinteEmitente' => [
+                'identificacao' => [
+                    'CPF' => '...',
+                    'CNPJ' => '...',
+                    'IE' => '...',
+                ],
+                'razaoSocial' => '...',
+            ],
+            'itensGNRE' => [
+                [
+                    '_tag' => 'item',
+                    'receita' => '...',
+                    'detalhamentoReceita' => '...',
+                    'documentoOrigem' => [
+                        '_attributes' => ['tipo' => '...'],
+                        '_value' => '...'
+                    ],
+                    'produto' => '...',
+                    'referencia' => [
+                        'periodo' => '...',
+                        'mes' => '...',
+                        'ano' => '...',
+                        'parcela' => '...'
+                    ],
+                    'dataVencimento' => '...',
+                    'valor'  => [
+                        '_attributes' => ['tipo' => '...'],
+                        '_value' => '...'
+                    ],
+                    'convenio' => '...',
+                    'contribuinteDestinatario' => [
+                        'identificacao' => [
+                            'CPF' => '...',
+                            'CNPJ' => '...',
+                            'IE' => '...',
+                        ],
+                        'razaoSocial' => '...',
+                        'municipio' => '...'
+                    ],
+                    'camposExtras' => [
+                        [
+                            '_tag' => 'campoExtra',
+                            'codigo' => '...',
+                            'valor' => '...'
+                        ],
+                        [
+                            '_tag' => 'campoExtra',
+                            'codigo' => '...',
+                            'valor' => '...'
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+];
+
+$xmlBuilder = new \Sped\Gnre\Sefaz\LoteV2Builder($gnre);
+$xmlResult = $xmlBuilder->buildXML();
+```
