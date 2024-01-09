@@ -141,4 +141,24 @@ class Html
     {
         return $this->html;
     }
+
+    public function createGuiaHtml(array $guia)
+    {
+        $guiaViaInfo = array(
+            1 => '1ª via Banco',
+            2 => '2ª via Contrinuinte',
+            3 => '3ª via Contribuinte/Fisco'
+        );
+
+        $barcode = $this->getBarCode()->setNumeroCodigoBarras($guia['retornoCodigoDeBarras']);
+
+        $smarty = $this->getSmartyFactory()->create();
+        $smarty->assign('guiaViaInfo', $guiaViaInfo);
+        $smarty->assign('barcode', $barcode);
+        $smarty->assign('guia', $guia);
+
+        $documentRoot = dirname(dirname(dirname(dirname(dirname(__FILE__))))) .  DIRECTORY_SEPARATOR;
+
+        $this->html = $smarty->fetch($documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'guia.tpl');
+    }
 }

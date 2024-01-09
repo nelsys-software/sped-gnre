@@ -90,7 +90,7 @@ class LoteV2 extends Lote
                     'action' => $action,
                     'SOAPAction' => 'consultar'
                 ],
-                'body' => (new Consulta($recibo ?: $this->recibo, $this->ambienteDeTesteV2))->toXml()
+                'body' => (new LoteV2ConsultaBuilder($recibo ?: $this->recibo, $this->ambienteDeTesteV2))->toXml()
             ]);
 
             return simplexml_load_string($response->getBody()->getContents());
