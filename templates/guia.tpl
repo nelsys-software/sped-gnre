@@ -68,103 +68,119 @@
             border-left: 0px;
         }
 
+
+        .table {
+            display: table;
+            width: 100%;
+            border: 1px solid #000000;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            padding: 5px;
+        }
+
+        .colspan {
+            width: 100%;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #000000;
+        }
+        .p0 {
+            padding: 0;
+            margin: 0;
+        }
+        .b0 {
+            margin-bottom: 0; padding-bottom: 0;
+        }
     </style>
     <body>
         {foreach $guiaViaInfo as $key => $via}
             <table cellspacing="0" cellpadding="1" style="width:100%;">
                 <tr>
-                    <td style="width: 65%;" valign="top" class="noborder">
-                        <table cellspacing="0" cellpadding="1" style="width:100%">
-                            <tr>
-                                <td class="columnone gnre" colspan="2">
-                                    Guia Nacional de Recolhimento de Tributos Estaduais - GNRE
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="center nobrdtb" colspan="2">
-                                    Dados do emitente
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="borderleft">
-                                    Razão Social
-                                </td>
-                                <td class="borderright" style="width: 50px">
-                                    CNPJ/CPF/Insc. Est.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="borderleft">
-                                    {$guia['contribuinteEmitenteRazaoSocial']}
-                                </td>
-                                <td class="borderright">
-                                    {$guia['contribuinteEmitente_identificacao']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop nobottom" colspan="2">
-                                    Endereço: {$guia['contribuinteEmitenteEndereco']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="borderleft">
-                                    Município: {$guia['contribuinteEmitente_municipio']}
-                                </td>
-                                <td class="borderright">
-                                    UF: {$guia['contribuinteEmitenteUf']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="noright notop">
-                                    CEP: {$guia['contribuinteEmitenteCep']}
-                                </td>
-                                <td class="noleft notop">
-                                    DDD/Telefone: {$guia['contribuinteEmitenteTelefone']}
-                                </td>
-                            </tr>
-                            <tr >
-                                <td class="center nobrdtb" colspan="2">
-                                    Dados do Destinatário
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop nobottom" colspan="2">
-                                    CNPJ/CPF/Insc. Est.: {$guia['contribuinteEmitente_identificacao']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop" colspan="2">
-                                    Município: {$guia['itensGNRE0ContribuinteDestinatario_municipio']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="center nobrdtb" colspan="2">
-                                    Informações à Fiscalização
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop nobottom" colspan="2">
-                                    Convênio/Protocolo: {$guia['_convenio']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop" colspan="2">
-                                    Produto: {$guia['itensGNRE0Produto']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="nobrdtb" colspan="2" style="height:64px" valign="top">
-                                    Informações Complementares: {$guia['retornoInformacoesComplementares']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop" colspan="2">
-                                    Documento válido para pagamento até {$guia['itensGNRE0_dataVencimento']}
-                                </td>
-                            </tr>
-                        </table>
+                    <td style="width: 100%;" valign="top" class="noborder">
+                        <div class="table">
+                            <div class="border-bottom" style="width:100%;text-align: center;">
+                                <h2>Guia Nacional de Recolhimento de Tributos Estaduais - GNRE</h2>
+                            </div>
+                            <div class="border-bottom">
+                                <div style="width:100%;text-align: center;">
+                                    <h4 class="p0">Dados do emitente</h4>
+                                </div>
+                                <div style="width:65%; float:left;">
+                                    <p class="b0">Razão Social <br> {$guia['contribuinteEmitenteRazaoSocial']}</p>
+                                </div>
+                                <div style="width:35%; float:right;">
+                                    <p class="b0">CNPJ/CPF/Insc. Est. <br> {$guia['contribuinteEmitente_identificacao']}</p>
+                                </div>
+
+                                <div style="width:100%;">
+                                    <p class="p0">Endereço: {$guia['contribuinteEmitenteEndereco']}</p>
+                                </div>
+
+                                <div style="width:65%; float:left;">
+                                    <p class="p0">Município: {$guia['contribuinteEmitente_municipio']}</p>
+                                </div>
+
+                                <div style="width:35%; float:right;">
+                                    <p class="p0">UF: {$guia['contribuinteEmitenteUf']}</p>
+                                </div>
+
+                                <div style="clear: both"></div>
+
+                                <div style="width:65%; float:left;">
+                                    <p style="margin-top: 0; padding-top: 0">CEP: {$guia['contribuinteEmitenteCep']}</p>
+                                </div>
+                                <div style="width:35%; float:right;">
+                                    <p style="margin-top: 0; padding-top: 0">DDD/Telefone: {$guia['contribuinteEmitenteTelefone']}</p>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                            <div class="border-bottom">
+                                <div style="width:100%;text-align: center;">
+                                    <h4 class="p0">Dados do Destinatário</h4>
+                                </div>
+
+                                <div style="width:100%;">
+                                    <p class="p0">CNPJ/CPF/Insc. Est.: {$guia['contribuinteEmitente_identificacao']}</p>
+                                </div>
+
+                                <div style="width:100%;">
+                                    <p style="margin-top: 0;padding-top: 0">Município: {if 'itensGNRE0ContribuinteDestinatario_municipio'|array_key_exists:$guia}{$guia['itensGNRE0ContribuinteDestinatario_municipio']}{/if}</p>
+                                </div>
+                            </div>
+
+                            <div class="border-bottom">
+                                <div style="width:100%;text-align: center;">
+                                    <h4 class="p0">Informações à Fiscalização</h4>
+                                </div>
+
+                                <div style="width:100%;">
+                                    <p class="p0">Convênio/Protocolo: {if '_convenio'|array_key_exists:$guia}{$guia['_convenio']}{/if}</p>
+                                </div>
+
+                                <div style="width:100%;" >
+                                    <p style="margin-top: 0;padding-top: 0">Produto: {if 'itensGNRE0Produto'|array_key_exists:$guia}{$guia['itensGNRE0Produto']}{/if}</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="width:100%;">
+                                    <p>Informações Complementares: {$guia['retornoInformacoesComplementares']}</p>
+                                </div>
+
+                                <div style="width:100%;">
+                                    <p style="margin-top: 0;padding-top: 0">Documento válido para pagamento até {$guia['itensGNRE0_dataVencimento']}</p>
+                                </div>
+                            </div>
+                        </div>
                     </td>
-                    <td class="noborder" valign="top">
+                    <td style="width: 100%;" class="noborder" valign="top">
                         <table cellspacing="0" cellpadding="1" style="width:100%; margin-left: -1px;">
                             <tr>
                                 <td class="nobottom">UF Favorecida</td>
@@ -190,7 +206,7 @@
                                 <td colspan="3" class="nobottom">Nº do Documento de Origem</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop">{$guia['itensGNRE0DocumentoOrigem_value']}</td>
+                                <td colspan="3" align="right" class="notop">{if 'itensGNRE0DocumentoOrigem_value'|array_key_exists:$guia}{$guia['itensGNRE0DocumentoOrigem_value']}{/if}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="nobottom">Período de Referência</td>
@@ -198,7 +214,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="notop" align="right">{$guia['itensGNRE0ReferenciaMes']}/{$guia['itensGNRE0ReferenciaAno']}</td>
-                                <td class="notop" align="right">{$guia['itensGNRE0ReferenciaParcela']}</td>
+                                <td class="notop" align="right">{if 'itensGNRE0ReferenciaParcela'|array_key_exists:$guia}{$guia['itensGNRE0ReferenciaParcela']}{/if}</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Valor Principal</td>

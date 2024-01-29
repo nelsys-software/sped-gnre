@@ -4,6 +4,7 @@ namespace Sped\Gnre\Sefaz;
 
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Sped\Gnre\Sefaz\LoteV2ConsultaBuilder;
 
 class LoteV2Request
 {
@@ -13,6 +14,7 @@ class LoteV2Request
     private OutputInterface $output;
     private $response;
     private $body;
+    private $codigoSituacaoProcess;
 
     public function __construct(
         $certPass = 'mudar123@',
@@ -47,23 +49,40 @@ class LoteV2Request
             $xml = simplexml_load_string($response->getBody()->getContents());
             $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
 
+            $getValue = function ($ns, $expression) use ($xml) {
+                $parts = explode('.', $expression);
+                $path = $xml;
+
+                foreach ($parts as $part) {
+                    $path = $path->xpath($ns . $part);
+                    
+                    if (!array_key_exists(0, $path)) {
+                        throw new \Exception("Caminho ".$part." não existe", 1);
+                    }
+
+                    $path = $path[0];
+                }
+
+                if (!$path) {
+                    return null;
+                }
+
+                return (string) $path[0];
+            };
+
             $this->body = $body;
             $this->response = $xml->asXML();
+            $this->codigoSituacaoProcess = $getValue('//ns1:','situacaoRecepcao.codigo');
+            $this->recibo = $getValue('//ns1:', 'numero');
 
-            if (!array_key_exists(0, $xml->xpath('//ns1:numero'))) {
+            if (!$this->recibo && !$this->codigoSituacaoProcess) {
                 return false;
             }
 
-            $this->recibo = (string) $xml->xpath('//ns1:numero')[0];
-
-            return [
-                'XmlEnvio' => $body,
-                'XmlRecibo' => $xml->asXML(),
-                'recibo' => $this->recibo
-            ];
+            return true;
         } catch (\Exception $e) {
-//            $output->writeln($e->getMessage());
-//            $output->writeln('at line:' . $e->getLine());
+            $this->body = $body;
+            $this->response = $e->getMessage();
             return false;
         }
     }
@@ -85,36 +104,63 @@ class LoteV2Request
             ]);
 
             $xml = simplexml_load_string($response->getBody()->getContents());
-            $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint());
+            $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
+
+            $getValue = function ($ns, $expression) use ($xml) {
+                $parts = explode('.', $expression);
+                $path = $xml;
+
+                foreach ($parts as $part) {
+                    $path = $path->xpath($ns . $part);
+                    
+                    if (!array_key_exists(0, $path)) {
+                        // throw new \Exception($xml->asXML() . "Caminho ".$part." não existe", 1);
+                        return null;
+                    }
+
+                    $path = $path[0];
+                }
+
+                if (!$path) {
+                    return null;
+                }
+
+                return (string) $path[0];
+            };
+
 
             $this->body = $body;
             $this->response = $xml->asXML();
+            $this->codigoSituacaoProcess = $getValue('//ns1:','situacaoProcess.codigo');
 
-            if (!array_key_exists(0, $xml->xpath('//ns1:codigoBarras'))) {
+            if (!$getValue('//ns1:','codigoBarras') && !$this->codigoSituacaoProcess) {
                 return false;
             }
 
             return [
-                'XmlGNRE' => $xml->asXML(),
-                'retornoCodigoDeBarras' => (string) $xml->xpath('//ns1:codigoBarras')[0],
-                'linhaDigitavel' => (string) $xml->xpath('//ns1:codigoBarras')[0],
-                'retornoRepresentacaoNumerica' => (string) $xml->xpath('//ns1:linhaDigitavel')[0],
-                'retornoInformacoesComplementares' => (string) $xml->xpath('//ns1:informacao')[0],
-                'retornoNumeroDeControle' => (string) $xml->xpath('//ns1:nossoNumero')[0],
+                'retornoCodigoDeBarras' => $getValue('//ns1:','codigoBarras'),
+                'linhaDigitavel' => $getValue('//ns1:','codigoBarras'),
+                'retornoRepresentacaoNumerica' => $getValue('//ns1:','linhaDigitavel'),
+                'retornoInformacoesComplementares' => $getValue('//ns1:','informacao'),
+                'retornoNumeroDeControle' => $getValue('//ns1:','nossoNumero'),
                 'retornoAtualizacaoMonetaria' => 0,
                 'retornoJuros' => 0,
                 'retornoMulta' => 0,
             ];
         } catch (\Exception $e) {
-//            $output->writeln($e->getMessage());
-//            $output->writeln('at line:' . $e->getLine());
+            $this->body = $body;
+            $this->response = $e->getMessage();
             return false;
         }
     }
 
-    public function getSoapEndpoint()
+    public function getSoapEndpoint($https = true)
     {
-        return $this->isTestEnv ? 'https://www.testegnre.pe.gov.br' : 'https://www.gnre.pe.gov.br';
+        return sprintf(
+            '%s://%s',
+            $https ? 'https': 'http',
+            $this->isTestEnv ? 'www.testegnre.pe.gov.br' : 'www.gnre.pe.gov.br'
+        );
     }
 
     public function getResponse()
@@ -125,5 +171,15 @@ class LoteV2Request
     public function getBody()
     {
         return $this->body;
+    }
+
+    public function getRecibo()
+    {
+        return $this->recibo;
+    }
+
+    public function getCodigoSituacaoProcess()
+    {
+        return $this->codigoSituacaoProcess;
     }
 }
