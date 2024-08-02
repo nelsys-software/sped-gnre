@@ -67,7 +67,10 @@ class Barcode128
         $options = array(
             'text' => (string) $text,
             'imageType' => 'jpeg',
-            'drawText' => false
+            'drawText' => false,
+            'barThickWidth' => 2,
+            'barThinWidth' => 1,
+            'barHeight' => 35,
         );
 
         $barcode = new \Laminas\Barcode\Object\Code128();

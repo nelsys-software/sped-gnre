@@ -62,9 +62,10 @@ class FilePrefix
 
         $fileName = $arrayPath[count($arrayPath) - 1];
         $arrayFileName = explode('.', $fileName);
-
+        
         $extension = $arrayFileName[1];
-        $singleFileName = $arrayFileName[0];
+	
+	$singleFileName = $arrayFileName[0];
 
         $arrayPath[$nameFilePosition] = $singleFileName . $this->prefix . '.' . $extension;
 

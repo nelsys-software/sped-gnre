@@ -174,7 +174,7 @@
                                     <p>Informações Complementares: {$guia['retornoInformacoesComplementares']}</p>
                                 </div>
 
-                                <div style="width:100%;">
+                                <div style="width:100%; padding-bottom:5px">
                                     <p style="margin-top: 0;padding-top: 0">Documento válido para pagamento até {$guia['itensGNRE0_dataVencimento']}</p>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="noborder" style="padding-left:90px;" >
+                    <td class="noborder" style="padding-left:0px;" >
                         <img src="data:image/jpeg;base64,{$barcode->getCodigoBarrasBase64()}"/>
                     </td>
                 </tr>

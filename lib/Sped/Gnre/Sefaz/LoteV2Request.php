@@ -17,24 +17,25 @@ class LoteV2Request
     private $codigoSituacaoProcess;
 
     public function __construct(
-        $certPass = 'mudar123@',
-        $certPath = 'data/certificado/certificado.pfx',
+        $certKey = 'data/certificado/certificadoKey.pem',
+        $certPath = 'data/certificado/certificado.pem',
         $isTestEnv = false,
         ClientInterface $httpClient = null
     ){
         $this->isTestEnv = $isTestEnv;
         $this->httpClient = $httpClient ?: new \GuzzleHttp\Client([
             'base_uri' => $this->getSoapEndpoint(),
-            'cert'     => [$certPath, $certPass],
-            'curl'     => [CURLOPT_SSLCERTTYPE => 'P12']
+            'curl'     => [
+				CURLOPT_SSLCERTTYPE => 'PEM',
+				CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0,
+				CURLOPT_SSLCERT => $certPath, CURLOPT_SSLKEY => $certKey
+			]
         ]);
     }
-
     public function enviarLote(LoteV2Builder $xmlBuilder): bool|array
     {
         $action = sprintf('"%s/gnreWS/services/GnreLoteRecepcao"', $this->getSoapEndpoint());
         $body = $xmlBuilder->buildXML();
-
         try {
             $response = $this->httpClient->request('POST', 'gnreWS/services/GnreLoteRecepcao', [
                 'headers' => [
@@ -48,7 +49,7 @@ class LoteV2Request
 
             $xml = simplexml_load_string($response->getBody()->getContents());
             $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
-
+             
             $getValue = function ($ns, $expression) use ($xml) {
                 $parts = explode('.', $expression);
                 $path = $xml;
@@ -79,10 +80,12 @@ class LoteV2Request
                 return false;
             }
 
-            return true;
+	    return true;
+	    
         } catch (\Exception $e) {
             $this->body = $body;
             $this->response = $e->getMessage();
+	    var_dump($e->getMessage());
             return false;
         }
     }
@@ -102,7 +105,6 @@ class LoteV2Request
                 ],
                 'body' => $body
             ]);
-
             $xml = simplexml_load_string($response->getBody()->getContents());
             $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
 

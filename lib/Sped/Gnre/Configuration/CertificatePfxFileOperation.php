@@ -58,9 +58,9 @@ class CertificatePfxFileOperation extends FileOperation
 
         $this->fileName = str_replace('.pfx', '.pem', $explodePath[$total - 1]);
 
-        $explodePath[$total - 1] = $this->metadataFolder;
+        //$explodePath[$total - 1] = $this->metadataFolder;
 
-        array_push($explodePath, $this->fileName);
+        //array_push($explodePath, $this->fileName);
 
         $this->pathToWrite = implode('/', $explodePath);
     }
@@ -76,7 +76,7 @@ class CertificatePfxFileOperation extends FileOperation
     {
         $key = file_get_contents($this->filePath);
         $dataCertificate = array();
-        if (!openssl_pkcs12_read($key, $dataCertificate, $password)) {
+	if (!openssl_pkcs12_read($key, $dataCertificate, $password)) {
             throw new CannotOpenCertificate($this->filePath);
         }
 
@@ -95,9 +95,10 @@ class CertificatePfxFileOperation extends FileOperation
     public function writeFile($content, FilePrefix $filePrefix)
     {
         $pathToWrite = $filePrefix->apply($this->pathToWrite);
-
         if (!file_put_contents($pathToWrite, $content)) {
-            throw new UnableToWriteFile($this->pathToWrite);
+            //throw new UnableToWriteFile($this->pathToWrite);
+	    chmod($pathToWrite, 0777);
+	    file_put_contents($pathToWrite, $content);
         }
 
         return $pathToWrite;
