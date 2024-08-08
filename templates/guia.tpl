@@ -253,7 +253,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="noborder" style="padding-left:140px;">
+                    <td colspan="2" class="noborder" style="padding-left:50px;">
                         {$guia['retornoRepresentacaoNumerica']}
                     </td>
                 </tr>
