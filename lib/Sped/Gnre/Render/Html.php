@@ -149,7 +149,9 @@ class Html
             2 => '2ª via Contrinuinte',
             3 => '3ª via Contribuinte/Fisco'
         );
-	
+
+        $guia['retornoCodigoDeBarras'] = $this->formatBarcode($guia['retornoCodigoDeBarras']);
+
         $barcode = $this->getBarCode()->setNumeroCodigoBarras($guia['retornoCodigoDeBarras']);
 
         $smarty = $this->getSmartyFactory()->create();
@@ -160,4 +162,9 @@ class Html
         $documentRoot = dirname(dirname(dirname(dirname(dirname(__FILE__))))) .  DIRECTORY_SEPARATOR;
         $this->html = $smarty->fetch($documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'guia.tpl');
     }
+
+    private function formatBarcode($barcode) {
+        $padrao = '/(\d{11})(\d{1})(\d{11})(\d{1})(\d{11})(\d{1})(\d{11})(\d{1})/';
+        return preg_replace($padrao, '$1 $2 $3 $4 $5 $6 $7 $8', $barcode);
+      }
 }

@@ -252,17 +252,15 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="noborder" style="padding-left:50px;">
-                        {$guia['retornoRepresentacaoNumerica']}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="noborder" style="padding-left:0px;" >
-                        <img src="data:image/jpeg;base64,{$barcode->getCodigoBarrasBase64()}"/>
-                    </td>
-                </tr>
             </table>
+            <div style="margin-top:5px">
+                <span style="padding-left:120px">
+                    {$guia['retornoRepresentacaoNumerica']}
+                </span>
+                <div>
+                    <img src="data:image/jpeg;base64,{$barcode->getCodigoBarrasBase64()}"/>
+                </div>
+            </div>
             <br/>
         {/foreach}
     </body>

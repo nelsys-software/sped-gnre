@@ -66,14 +66,13 @@ class Barcode128
         $text = $this->getNumeroCodigoBarras();
         $options = array(
             'text' => (string) $text,
-            'imageType' => 'jpeg',
+            'imageType' => 'svg',
             'drawText' => false,
-            'barThickWidth' => 2,
-            'barThinWidth' => 1,
-            'barHeight' => 35,
+            'factor' => 1,
+            'barHeight' => 70,
         );
 
-        $barcode = new \Laminas\Barcode\Object\Code128();
+        $barcode = new \Laminas\Barcode\Object\Code25interleaved();
         $barcode->setOptions($options);
 
         $barcodeOBj = \Laminas\Barcode\Barcode::factory($barcode);
