@@ -147,7 +147,7 @@
                                 </div>
 
                                 <div style="width:100%;">
-                                    <p class="p0">CNPJ/CPF/Insc. Est.: {$guia['contribuinteEmitente_identificacao']}</p>
+                                    <p class="p0">CNPJ/CPF/Insc. Est.: {if 'itensGNREItemContribuinteDestinatarioIdentificacaoCPF'|array_key_exists:$guia}{$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCPF']}{elseif 'itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ'|array_key_exists:$guia}{$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ']}{/if}</p>
                                 </div>
 
                                 <div style="width:100%;">
