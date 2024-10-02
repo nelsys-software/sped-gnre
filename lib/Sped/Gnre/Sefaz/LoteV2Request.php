@@ -19,23 +19,32 @@ class LoteV2Request
     public function __construct(
         $certKey = 'data/certificado/certificadoKey.pem',
         $certPath = 'data/certificado/certificado.pem',
+        $certOriginal = 'data/certificado/certificado.pem',
+        $certPassword = '',
         $isTestEnv = false,
         ClientInterface $httpClient = null
     ){
+
         $this->isTestEnv = $isTestEnv;
         $this->httpClient = $httpClient ?: new \GuzzleHttp\Client([
             'base_uri' => $this->getSoapEndpoint(),
             'curl'     => [
-				CURLOPT_SSLCERTTYPE => 'PEM',
+				CURLOPT_SSLCERTTYPE => 'P12',
 				CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0,
-				CURLOPT_SSLCERT => $certPath, CURLOPT_SSLKEY => $certKey
+				CURLOPT_SSLCERT => $certOriginal,
+                CURLOPT_SSLCERTPASSWD => $certPassword,
+                // CURLOPT_SSLKEY => $certKey,
+                CURLOPT_SSLVERSION => CURL_SSLVERSION_DEFAULT,
+                CURLOPT_VERBOSE => true
 			]
         ]);
     }
     public function enviarLote(LoteV2Builder $xmlBuilder): bool|array
     {
+
         $action = sprintf('"%s/gnreWS/services/GnreLoteRecepcao"', $this->getSoapEndpoint());
         $body = $xmlBuilder->buildXML();
+
         try {
             $response = $this->httpClient->request('POST', 'gnreWS/services/GnreLoteRecepcao', [
                 'headers' => [
@@ -46,17 +55,16 @@ class LoteV2Request
                 ],
                 'body' => $body
             ]);
-
             $xml = simplexml_load_string($response->getBody()->getContents());
             $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
-             
+
             $getValue = function ($ns, $expression) use ($xml) {
                 $parts = explode('.', $expression);
                 $path = $xml;
 
                 foreach ($parts as $part) {
                     $path = $path->xpath($ns . $part);
-                    
+
                     if (!array_key_exists(0, $path)) {
                         throw new \Exception("Caminho ".$part." não existe", 1);
                     }
@@ -81,11 +89,11 @@ class LoteV2Request
             }
 
 	    return true;
-	    
+
         } catch (\Exception $e) {
             $this->body = $body;
             $this->response = $e->getMessage();
-	    var_dump($e->getMessage());
+            var_dump($e->getMessage());
             return false;
         }
     }
@@ -94,7 +102,6 @@ class LoteV2Request
     {
         $action = sprintf('"%s/gnreWS/services/GnreResultadoLote"', $this->getSoapEndpoint());
         $body = (new LoteV2ConsultaBuilder($recibo ?: $this->recibo, $this->isTestEnv))->buildXML();
-
         try {
             $response = $this->httpClient->request('POST', 'gnreWS/services/GnreResultadoLote', [
                 'headers' => [
@@ -106,15 +113,15 @@ class LoteV2Request
                 'body' => $body
             ]);
             $xml = simplexml_load_string($response->getBody()->getContents());
-            $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
 
+            $xml->registerXPathNamespace('ns1', $this->getSoapEndpoint(false));
             $getValue = function ($ns, $expression) use ($xml) {
                 $parts = explode('.', $expression);
                 $path = $xml;
 
                 foreach ($parts as $part) {
                     $path = $path->xpath($ns . $part);
-                    
+
                     if (!array_key_exists(0, $path)) {
                         // throw new \Exception($xml->asXML() . "Caminho ".$part." não existe", 1);
                         return null;
@@ -152,6 +159,7 @@ class LoteV2Request
         } catch (\Exception $e) {
             $this->body = $body;
             $this->response = $e->getMessage();
+            var_dump($this->response);
             return false;
         }
     }
