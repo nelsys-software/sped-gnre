@@ -8,260 +8,486 @@
         body{
             margin:5px;
             padding:0px;
+            padding-top: 10px;
             font-size: 0.54rem;
+            font-family: Arial, sans-serif;
         }
-        table tr td{
-            border: 1px solid #000;
+
+        .clear {
+            clear: both;
         }
-        .columnone{
-            width: 500px;
-        }
-        .gnre{
-            font-size: 14px;
-            height:25px;
+
+        .titulo {
             font-weight:bold;
+        }
+
+        .guia-container {
+            margin-bottom: 2px;
+            width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .guia {
+            border: 1px solid #000;
+            
+            font-size: 0;
+        }
+
+        .guia .dados, .guia .valores {
+            font-size: 0.58rem;
+        }
+
+        .guia > div {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .guia .dados {
+            width:70%;
+            border-right: 1px solid #000;
+        }
+
+        .guia .dados > .titulo {
             text-align: center;
+            font-size: 0.75rem;
+            padding-top: 4px;
+            padding-bottom: 1.3%;
+            border-bottom: 1px solid #000;
         }
-        .noborder{
-            border-top: 0px;
-            border-bottom: 0px;
-            border-left: 0px;
-            border-right: 0px;
-        }
-        .center{
+
+        .guia .dados .contribuinte-emitente > .titulo {
             text-align: center;
-        }
-        .nobrdtb{
-            border-top: 0px;
-            border-bottom: 0px;
-        }
-        .noleft{
-            border-left: 0px;
+            font-size: 0.58rem;
         }
 
-        .nobottom{
-            border-bottom: 0px;
-        }
-        .notop{
-            border-top: 0px;
-        }
-
-        .noright{
-            border-right: 0px;
+        .guia .dados .contribuinte-emitente {
+            padding-left: 2px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #000;
         }
 
-        .borderleft{
-            border-top: 0px;
-            border-bottom: 0px;
-            border-right: 0px;
+        .guia .dados .contribuinte-emitente > div {
+            margin-bottom: 0.1%;
         }
 
-        .borderbottom{
-            border-top: 0px;
-            border-left: 0px;
-            border-right: 0px;
+        .guia .dados .contribuinte-emitente .info-1 > div, .guia .dados .contribuinte-emitente .info-3 > div,
+        .guia .dados .contribuinte-emitente .info-4 > div {
+            display: inline-block;
+            vertical-align: top;
         }
 
-        .borderright{
-            border-top: 0px;
-            border-bottom: 0px;
-            border-left: 0px;
+        .guia .dados .contribuinte-emitente .info-1 .razao-social {
+            font-size: 0.58rem;
         }
 
-
-        .table {
-            display: table;
-            width: 100%;
-            border: 1px solid #000000;
+        .guia .dados .contribuinte-emitente .info-1 .cnpj {
+            font-size: 0.58rem;
+            float: right;
         }
 
-        .row {
-            display: table-row;
+        .guia .dados .contribuinte-emitente .info-1 .cnpj {
+            font-size: 0.58rem;
+            float: right;
+            margin-right: 35px;
         }
 
-        .cell {
-            display: table-cell;
-            padding: 5px;
+        .guia .dados .contribuinte-emitente .info-2 .endereco {
+            font-size: 0.58rem;
         }
 
-        .colspan {
-            width: 100%;
+        .guia .dados .contribuinte-emitente .info-3 .municipio {
+            font-size: 0.58rem;
         }
 
-        .border-bottom {
-            border-bottom: 1px solid #000000;
+        .guia .dados .contribuinte-emitente .info-3 .uf {
+            font-size: 0.58rem;
+            float: right;
+            margin-right: 85px;
         }
-        .p0 {
-            padding: 0;
-            margin: 0;
+
+        .guia .dados .contribuinte-emitente .info-4 .cep {
+            font-size: 0.58rem;
         }
-        .b0 {
-            margin-bottom: 0; padding-bottom: 0;
+
+        .guia .dados .contribuinte-emitente .info-4 .telefone {
+            font-size: 0.58rem;
+            float: right;
+            margin-right: 46px;
         }
+
+        .guia .dados .destinatario {
+            padding-left: 2px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #000;
+        }
+
+        .guia .dados .destinatario .titulo {
+            text-align: center;
+            font-size: 0.58rem;
+        }
+
+        .guia .dados .destinatario .cpf-cnpj, .guia .dados .destinatario .municipio {
+            font-size: 0.58rem;
+        }
+
+        .guia .dados .fiscalizacao {
+            padding-left: 2px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000;
+        }
+
+        .guia .dados .fiscalizacao .titulo {
+            text-align: center;
+            font-size: 0.58rem;
+        }
+
+        .guia .dados .fiscalizacao .convenio-protocolo, .guia .dados .fiscalizacao .produto {
+            font-size: 0.58rem;
+        }
+
+        .guia .dados .complementar {
+            padding-left: 2px;
+            padding-bottom: 11px;
+        }
+
+        .guia .dados .complementar .informacoes-complementares {
+            font-size: 0.58rem;
+            height: 49px;
+        }
+
+        .guia .dados .complementar .documento-valido-pagamento {
+            font-size: 0.58rem;
+        }
+
+        .guia .valores {
+            width: 29.8%;
+        }
+
+        .guia .valores .info-1 {
+            border-bottom: 1px solid #000;
+        }
+
+        .guia .valores .info-1 > div {
+            display: inline-block;
+            vertical-align: top;
+            padding-top: 1px;
+            padding-bottom: 0.7%;
+            padding-left: 2px;
+        }
+
+        .guia .valores .info-1 .uf-favorecida {
+            width: 40%;
+            border-right: 1px solid #000;
+        }
+
+        .guia .valores .info-1 .uf-favorecida, .guia .valores .info-1 .codigo-receita,
+        .guia .valores .info-5 .periodo-referencia, .guia .valores .info-5 .parcela {
+            font-size: 0.58rem;
+        }
+
+        .guia .valores .info-2 .controle, .guia .valores .info-3 .data-vencimento, .guia .valores .info-4 .documento-origem,
+        .guia .valores .info-6 .valor-principal, .guia .valores .info-7 .atualizacao-monetaria, .guia .valores .info-8 .juros,
+        .guia .valores .info-9 .multa {
+            font-size: 0.58rem;
+            border-bottom: 1px solid #000;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+
+        .guia .valores .info-10 .total-recolher {
+            font-size: 0.58rem;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+
+        .guia .valores .info-2 .controle > div, .guia .valores .info-3 .data-vencimento > div,
+        .guia .valores .info-4 .documento-origem > div, .guia .valores .info-6 .valor-principal > div,
+        .guia .valores .info-7 .atualizacao-monetaria > div, .guia .valores .info-8 .juros > div,
+        .guia .valores .info-9 .multa > div, .guia .valores .info-10 .total-recolher > div {
+            text-align: left;
+        }
+
+        .guia .valores .info-2 .controle, .guia .valores .info-3 .data-vencimento, .guia .valores .info-4 .documento-origem,
+        .guia .valores .info-6 .valor-principal, .guia .valores .info-7 .atualizacao-monetaria,
+        .guia .valores .info-8 .juros, .guia .valores .info-9 .multa, .guia .valores .info-10 .total-recolher {
+            text-align: right;
+        }
+
+        .guia .valores .info-5 {
+            border-bottom: 1px solid #000;
+        }
+
+        .guia .valores .info-5 > div {
+            display: inline-block;
+            vertical-align: top;
+            padding-top: 1px;
+            padding-bottom: 0.7%;
+            padding-left: 2px;
+        }
+
+        .guia .valores .info-5 .periodo-referencia {
+            width: 60%;
+            border-right: 1px solid #000;
+        }
+
+        .guia .valores .info-6 .valor-principal {
+            border-bottom: 1px solid #000;
+        }
+
+        .guia .valores .info-6 .valor-principal > div {
+            text-align: left;
+        }
+
+        .guia .valores .info-6 .valor-principal span {
+            text-align: right;
+        }
+
+        .guia-rodape {
+            margin-top: 3px;
+            margin-bottom: 1px;
+        }
+        
+        .codigo-barras {
+            float: left;
+            text-align: left;
+        }
+
+        .via {
+            float: right;
+            margin-right: 5px;
+        }
+
     </style>
     <body>
         {foreach $guiaViaInfo as $key => $via}
-            <table cellspacing="0" cellpadding="1" style="width:100%;">
-                <tr>
-                    <td style="width: 100%;" valign="top" class="noborder">
-                        <div class="table">
-                            <div class="border-bottom" style="width:100%;text-align: center;">
-                                <h2>Guia Nacional de Recolhimento de Tributos Estaduais - GNRE</h2>
+            <div class="guia-container">
+                <div class="guia">
+                    <div class="dados">
+                        <div class="titulo">
+                            <span>Guia Nacional de Recolhimento de Tributos Estaduais - GNRE</span>
+                        </div>
+                        <div class="contribuinte-emitente">
+                            <div class="titulo">
+                                <span>Dados do Contribuinte Emitente</span>
                             </div>
-                            <div class="border-bottom">
-                                <div style="width:100%;text-align: center;">
-                                    <h4 class="p0">Dados do emitente</h4>
+                            <div class="info-1">
+                                <div class="razao-social">
+                                    <span class="titulo">Razão Social:</span>
+                                    <br>
+                                    <span>{$guia['contribuinteEmitenteRazaoSocial']}</span>
                                 </div>
-                                <div style="width:65%; float:left;">
-                                    <p class="b0">Razão Social <br> {$guia['contribuinteEmitenteRazaoSocial']}</p>
+                                <div class="cnpj">
+                                    <span class="titulo">CNPJ/CPF/Insc. Est.:</span>
+                                    <br>
+                                    <span>{$guia['contribuinteEmitente_identificacao']}</span>
                                 </div>
-                                <div style="width:35%; float:right;">
-                                    <p class="b0">CNPJ/CPF/Insc. Est. <br> {$guia['contribuinteEmitente_identificacao']}</p>
-                                </div>
-
-                                <div style="width:100%;">
-                                    <p class="p0">Endereço: {$guia['contribuinteEmitenteEndereco']}</p>
-                                </div>
-
-                                <div style="width:65%; float:left;">
-                                    <p class="p0">Município: {$guia['contribuinteEmitente_municipio']}</p>
-                                </div>
-
-                                <div style="width:35%; float:right;">
-                                    <p class="p0">UF: {$guia['contribuinteEmitenteUf']}</p>
-                                </div>
-
-                                <div style="clear: both"></div>
-
-                                <div style="width:65%; float:left;">
-                                    <p style="margin-top: 0; padding-top: 0">CEP: {$guia['contribuinteEmitenteCep']}</p>
-                                </div>
-                                <div style="width:35%; float:right;">
-                                    <p style="margin-top: 0; padding-top: 0">DDD/Telefone: {$guia['contribuinteEmitenteTelefone']}</p>
-                                </div>
-                                <div style="clear: both"></div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="border-bottom">
-                                <div style="width:100%;text-align: center;">
-                                    <h4 class="p0">Dados do Destinatário</h4>
-                                </div>
-
-                                <div style="width:100%;">
-                                    <p class="p0">CNPJ/CPF/Insc. Est.: {if 'itensGNREItemContribuinteDestinatarioIdentificacaoCPF'|array_key_exists:$guia}{$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCPF']}{elseif 'itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ'|array_key_exists:$guia}{$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ']}{/if}</p>
-                                </div>
-
-                                <div style="width:100%;">
-                                    <p style="margin-top: 0;padding-top: 0">Município: {if 'itensGNRE0ContribuinteDestinatario_municipio'|array_key_exists:$guia}{$guia['itensGNRE0ContribuinteDestinatario_municipio']}{/if}</p>
+                            <div class="info-2">
+                                <div class="endereco">
+                                    <span class="titulo">Endereço:&nbsp;</span>
+                                    <span>{$guia['contribuinteEmitenteEndereco']}</span>
                                 </div>
                             </div>
-
-                            <div class="border-bottom">
-                                <div style="width:100%;text-align: center;">
-                                    <h4 class="p0">Informações à Fiscalização</h4>
+                            <div class="info-3">
+                                <div class="municipio">
+                                    <span class="titulo">Município:&nbsp;</span>
+                                    <span>{$guia['contribuinteEmitente_municipio']}</span>
                                 </div>
-
-                                <div style="width:100%;">
-                                    <p class="p0">Convênio/Protocolo: {if '_convenio'|array_key_exists:$guia}{$guia['_convenio']}{/if}</p>
+                                <div class="uf">
+                                    <span class="titulo">UF:&nbsp;</span>
+                                    <span>{$guia['contribuinteEmitenteUf']}</span>
                                 </div>
-
-                                <div style="width:100%;" >
-                                    <p style="margin-top: 0;padding-top: 0">Produto: {if 'itensGNRE0Produto'|array_key_exists:$guia}{$guia['itensGNRE0Produto']}{/if}</p>
-                                </div>
+                                <div class="clear"></div>
                             </div>
-
-                            <div>
-                                <div style="width:100%;">
-                                    <p>Informações Complementares: {$guia['retornoInformacoesComplementares']}</p>
+                            <div class="info-4">
+                                <div class="cep">
+                                    <span class="titulo">CEP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>{$guia['contribuinteEmitenteCep']}</span>
                                 </div>
-
-                                <div style="width:100%; padding-bottom:5px">
-                                    <p style="margin-top: 0;padding-top: 0">Documento válido para pagamento até {$guia['itensGNRE0_dataVencimento']}</p>
+                                <div class="telefone">
+                                    <span class="titulo">Telefone:&nbsp;</span>
+                                    <span>{$guia['contribuinteEmitenteTelefone']}</span>
                                 </div>
+                                <div class="clear"></div>
                             </div>
                         </div>
-                    </td>
-                    <td style="width: 100%;" class="noborder" valign="top">
-                        <table cellspacing="0" cellpadding="1" style="width:100%; margin-left: -1px;">
-                            <tr>
-                                <td class="nobottom">UF Favorecida</td>
-                                <td style="width: 120px" colspan="2" class="nobottom">Código da Receita</td>
-                            </tr>
-                            <tr>
-                                <td class="notop" align="right">{$guia['ufFavorecida']}</td>
-                                <td class="notop" align="right" colspan="2">{$guia['itensGNRE0Receita']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Nº de Controle</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="right" class="notop">{$guia['retornoNumeroDeControle']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Data de Vencimento</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="right" class="notop">{$guia['itensGNRE0_dataVencimento']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Nº do Documento de Origem</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="right" class="notop">{if 'itensGNRE0DocumentoOrigem_value'|array_key_exists:$guia}{$guia['itensGNRE0DocumentoOrigem_value']}{/if}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="nobottom">Período de Referência</td>
-                                <td class="nobottom" align="left">Nº Parcela</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="notop" align="right">{$guia['itensGNRE0ReferenciaMes']}/{$guia['itensGNRE0ReferenciaAno']}</td>
-                                <td class="notop" align="right">{if 'itensGNRE0ReferenciaParcela'|array_key_exists:$guia}{$guia['itensGNRE0ReferenciaParcela']}{/if}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Valor Principal</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="notop" align="right">R$ {$guia['itensGNRE00_11_valor']}</td> {*valorPrincipal*}
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Atualização Monetária</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="notop" align="right">R$ {$guia['retornoAtualizacaoMonetaria']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Juros</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="notop" align="right">R$ {$guia['retornoJuros']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Multa</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="notop" align="right">R$ {$guia['retornoMulta']}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Total a Recolher</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="notop" align="right">R$ {$guia['_valorGNRE']}</td> {*valorTotal*}
-                            </tr>
-                            <tr>
-                                <td class="noborder" colspan="3" style="text-align:right;">{$via}</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <div style="margin-top:5px">
-                <span style="padding-left:120px">
-                    {$guia['retornoRepresentacaoNumerica']}
-                </span>
-                <div>
-                    <img src="data:image/jpeg;base64,{$barcode->getCodigoBarrasBase64()}"/>
+                        <div class="destinatario">
+                            <div class="titulo">
+                                <span>Dados do Destinatário</span>
+                            </div>
+                            <div class="cpf-cnpj">
+                                <span class="titulo">CPF/CNPJ/Insc. Est.:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span>
+                                    {if 'itensGNREItemContribuinteDestinatarioIdentificacaoCPF'|array_key_exists:$guia}
+                                        {$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCPF']}
+                                    {elseif 'itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ'|array_key_exists:$guia}
+                                        {$guia['itensGNREItemContribuinteDestinatarioIdentificacaoCNPJ']}
+                                    {/if}
+                                </span>
+                            </div>
+                            <div class="municipio">
+                                <span class="titulo">Município:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span>
+                                    {if 'itensGNRE0ContribuinteDestinatario_municipio'|array_key_exists:$guia}
+                                        {$guia['itensGNRE0ContribuinteDestinatario_municipio']}
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="fiscalizacao">
+                            <div class="titulo">
+                                <span>Reservado à Fiscalização</span>
+                            </div>
+                            <div class="convenio-protocolo">
+                                <span class="titulo">Convênio/Protocolo:</span>
+                                <span>
+                                    {if '_convenio'|array_key_exists:$guia}
+                                        {$guia['_convenio']}
+                                    {/if}
+                                </span>
+                            </div>
+                            <div class="produto">
+                                <span class="titulo">Produto:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span>
+                                    {if 'itensGNRE0Produto'|array_key_exists:$guia}
+                                        {$guia['itensGNRE0Produto']}
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="complementar">
+                            <div class="informacoes-complementares">
+                                <span class="titulo">Informações Complementares:&nbsp;&nbsp;&nbsp;</span>
+                                <br>
+                                <span>{$guia['retornoInformacoesComplementares']}</span>
+                            </div>
+                            <div class="documento-valido-pagamento">
+                                <span class="titulo">Documento Válido para pagamento &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span>{$guia['itensGNRE0_dataVencimento']}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="valores">
+                        <div class="info-1">
+                            <div class="uf-favorecida">
+                                <span class="titulo">UF Favorecida</span>
+                                <br>
+                                <span>&nbsp;&nbsp;{$guia['ufFavorecida']}</span>
+                            </div>
+                            <div class="codigo-receita">
+                                <span class="titulo">Código da Receita</span>
+                                <br>
+                                <span>&nbsp;&nbsp;{$guia['itensGNRE0Receita']}</span>
+                            </div>
+                        </div>
+                        <div class="info-2">
+                            <div class="controle">
+                                <div>
+                                    <span class="titulo">Nº de Controle</span>
+                                </div>
+                                <span>{$guia['retornoNumeroDeControle']}</span>
+                            </div>
+                        </div>
+                        <div class="info-3">
+                            <div class="data-vencimento">
+                                <div>
+                                    <span class="titulo">Data de Vencimento</span>
+                                </div>
+                                <span>{$guia['itensGNRE0_dataVencimento']}</span>
+                            </div>
+                        </div>
+                        <div class="info-4">
+                            <div class="documento-origem">
+                                <div>
+                                    <span class="titulo">Nº Documento de Origem</span>
+                                </div>
+                                <span>
+                                    {if 'itensGNRE0DocumentoOrigem'|array_key_exists:$guia}
+                                        {$guia['itensGNRE0DocumentoOrigem']}
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-5">
+                            <div class="periodo-referencia">
+                                <span class="titulo">Período de Referência</span>
+                                <br>
+                                <span>&nbsp;&nbsp;{$guia['itensGNRE0ReferenciaMes']}/{$guia['itensGNRE0ReferenciaAno']}</span>
+                            </div>
+                            <div class="parcela">
+                                <span class="titulo">Parcela</span>
+                                <br>
+                                <span>
+                                    {if 'itensGNRE0ReferenciaParcela'|array_key_exists:$guia}
+                                        &nbsp;&nbsp;{$guia['itensGNRE0ReferenciaParcela']}
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-6">
+                            <div class="valor-principal">
+                                <div>
+                                    <span class="titulo">Valor Principal</span>
+                                </div>
+                                <span>R$ {$guia['itensGNRE00_11_valor']}</span> {*valorPrincipal*}
+                            </div>
+                        </div>
+                        <div class="info-7">
+                            <div class="atualizacao-monetaria">
+                                <div>
+                                    <span class="titulo">Atualização Monetária</span>
+                                </div>
+                                <span>R$ {$guia['retornoAtualizacaoMonetaria']}</span>
+                            </div>
+                        </div>
+                        <div class="info-8">
+                            <div class="juros">
+                                <div>
+                                    <span class="titulo">Juros</span>
+                                </div>
+                                <span>R$ {$guia['retornoJuros']}</span>
+                            </div>
+                        </div>
+                        <div class="info-9">
+                            <div class="multa">
+                                <div>
+                                    <span class="titulo">Multa</span>
+                                </div>
+                                <span>R$ {$guia['retornoMulta']}</span>
+                            </div>
+                        </div>
+                        <div class="info-10">
+                            <div class="total-recolher">
+                                <div>
+                                    <span class="titulo">Total a Recolher</span>
+                                </div>
+                                <span>R$ {$guia['_valorGNRE']}</span> {*valorTotal*}
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="guia-rodape">
+                    <div class="codigo-barras">
+                        <span>
+                            <b style="padding-left:120px">{$guia['retornoRepresentacaoNumerica']}</b>
+                        </span>
+                        <div>
+                            <img src="data:image/jpeg;base64,{$barcode->getCodigoBarrasBase64()}"/>
+                        </div>
+                    </div>
+                    <div class="via">
+                        <span>{$via}</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <span>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span>
             </div>
-            <br/>
         {/foreach}
     </body>
 </html>
