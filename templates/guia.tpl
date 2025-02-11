@@ -408,8 +408,8 @@
                                     <span class="titulo">Nº Documento de Origem</span>
                                 </div>
                                 <span>
-                                    {if 'itensGNRE0DocumentoOrigem'|array_key_exists:$guia}
-                                        {$guia['itensGNRE0DocumentoOrigem']}
+                                    {if 'itensGNRE0DocumentoOrigem_value'|array_key_exists:$guia}
+                                        {$guia['itensGNRE0DocumentoOrigem_value']}
                                     {/if}
                                 </span>
                             </div>
